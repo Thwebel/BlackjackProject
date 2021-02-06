@@ -9,6 +9,7 @@ public class Deck {
 
 	public Deck() {
 		this.deck = buildDeck();
+		shuffle();
 	}
 
 	private List<Card> buildDeck() {
@@ -33,5 +34,10 @@ public class Deck {
 	}
 	public void shuffle() {
 		Collections.shuffle(deck);
+	}
+	public void displayDeck() {
+		for (Card card : deck) {
+			System.out.println(card);
+		}
 	}
 }
