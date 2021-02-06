@@ -26,9 +26,9 @@ public class BlackJackDealer extends CardPlayer {
 		int i = 0;
 		for (Card card : hand.getHand()) {
 			if (i == 0) {
-				System.out.print("One Card Face Down, and ");
+				System.out.print("One Card Face Down. ");
 			} else {
-				System.out.print("the " + card + " ");
+				System.out.print("The " + card + ". ");
 			}
 			i++;
 		}

@@ -15,7 +15,7 @@ public abstract class CardPlayer {
 	
 	public void showHand() {
 		for (Card card : hand.getHand()) {
-			System.out.println(card);
+			System.out.print("The " + card + ". ");
 		}
 	}
 
