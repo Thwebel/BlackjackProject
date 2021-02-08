@@ -111,7 +111,28 @@ public class BlackJackApp {
 			if (checkWinner) {
 				decideWinner(dealer.getHand(), player.getHand());
 			}
-			playAgain = false;
+			boolean gettingInput = true;
+			while (gettingInput) {
+				System.out.println("\nPlay again? 1.) Yes! 2.) No!");
+				try {
+					playerSelection = kb.nextInt();
+					kb.nextLine();
+				} catch (InputMismatchException e) {
+					System.out.println("You must enter either 1 or 2\n");
+					kb.nextLine();
+					continue;
+				}
+				if (playerSelection != 1 && playerSelection != 2) {
+					System.out.println("You must enter either 1 or 2\n");
+					continue;
+				}
+				if (playerSelection == 2) {
+					playAgain = false;
+					break;
+				} else {
+					break;
+				}
+			}
 		}
 		kb.close();
 	}
