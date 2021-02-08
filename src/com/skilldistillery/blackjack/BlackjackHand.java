@@ -35,5 +35,10 @@ public class BlackjackHand extends Hand {
 			return false;
 		}
 	}
+	public void showHand() {
+		for (Card card : hand) {
+			System.out.print("The " + card + ". ");
+		}
+	}
 
 }

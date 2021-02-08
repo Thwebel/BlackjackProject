@@ -12,14 +12,11 @@ public class BlackJackDealer extends CardPlayer {
 //		add(deck.dealCard());
 	}
 
-	public void hitOrStand() {
-		// Hit
+	public void hit() {
 		if (hand.getValue() < 17) {
 			hand.getHand().add(deck.dealCard());
-		} else {
-
 		}
-
+		
 	}
 
 	public void cardsOnTable() {

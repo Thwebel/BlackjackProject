@@ -20,6 +20,7 @@ public class BlackJackApp {
 			BlackJackPlayer player = new BlackJackPlayer();
 			boolean playerTurn = true;
 			boolean dealerTurn = true;
+			boolean checkWinner = false;
 			int playerSelection = 0;
 
 			welcome();
@@ -73,20 +74,46 @@ public class BlackJackApp {
 					dealerTurn = false;
 					break;
 				}
-
-			}
-			while(dealerTurn) {
-				System.out.println("Dealer's Turn: ");
-				dealer.hitOrStand();
-				dealer.cardsOnTable();
-				if(dealer.getHand().isBustJack()) {
-					System.out.println();
+				if ((player.getHand().isBlackJack())) {
+					System.out.println("Blackjack!!!! You've won!");
+					dealerTurn = false;
+					break;
 				}
-				dealerTurn = false;
-			}
 
+			}
+			while (dealerTurn) {
+				System.out.println("\nDealer's Turn: \n");
+				while (dealer.getHand().getValue() < 17) {
+					System.out.println("Dealer Hit!\n");
+					dealer.hit();
+					System.out.println("Dealer is showing: ");
+					dealer.cardsOnTable();
+					System.out.println("");
+				}
+				if (dealer.getHand().isBustJack()) {
+					System.out.println("\nThe Dealer has gone over 21! Bust! You win!");
+					System.out.print("Dealer has: ");
+					System.out.println(dealer.getHand().getValue());
+					dealer.showHand();
+					break;
+				} else if ((dealer.getHand().isBlackJack())) {
+					System.out.println("\nDealer scored Blackjack!!!! Dealer Wins.");
+					System.out.print("Dealer has: ");
+					System.out.println(dealer.getHand().getValue());
+					dealer.showHand();
+					break;
+				}
+				System.out.println("Dealer Stands!\n");
+				dealerTurn = false;
+				checkWinner = true;
+
+			}
+			if (checkWinner) {
+				decideWinner(dealer.getHand(), player.getHand());
+			}
 			playAgain = false;
 		}
+		kb.close();
 	}
 
 	private void welcome() {
@@ -94,7 +121,7 @@ public class BlackJackApp {
 		System.out.println("We welcome you to sait your wonderlust with this wonderful local.");
 		System.out.println(
 				"It appears you've bullied, beguiled, or bought your way into the most illustrious Blackjack Game around.");
-		System.out.println("Welcome, welcome, welcome! Please, have a seat, order a drink , and enjoy the game. \n"
+		System.out.println("Welcome, welcome, welcome! Please, have a seat, order a drink, and enjoy the game. \n"
 				+ "Oh, and don't forget, tip your dealer!\n\n");
 	}
 
@@ -109,5 +136,30 @@ public class BlackJackApp {
 		dealer.dealCard(player);
 		dealer.dealCard(dealer);
 		dealer.dealCard(player);
+	}
+
+	private void decideWinner(BlackjackHand dealerHand, BlackjackHand playerHand) {
+		if (dealerHand.getValue() == playerHand.getValue()) {
+			System.out.println("You and the dealer both have a hand value of : " + dealerHand.getValue());
+			System.out.println("Tie!");
+		} else if (playerHand.getValue() > dealerHand.getValue()) {
+			System.out.println("You hand value is greater than the dealers! You've won!");
+			System.out.println("Final score:\nYou're score: " + playerHand.getValue());
+			System.out.print("You're hand: ");
+			playerHand.showHand();
+			System.out.println("\nDealer's score: " + dealerHand.getValue());
+			System.out.print("Dealer's hand: ");
+			playerHand.showHand();
+			System.out.println("");
+		} else {
+			System.out.println("You hand value is less than the dealers! You've Lost.");
+			System.out.println("Final score:\nYou're score: " + playerHand.getValue());
+			System.out.print("You're hand: ");
+			playerHand.showHand();
+			System.out.println("\nDealer's score: " + dealerHand.getValue());
+			System.out.print("Dealer's hand: ");
+			playerHand.showHand();
+
+		}
 	}
 }
